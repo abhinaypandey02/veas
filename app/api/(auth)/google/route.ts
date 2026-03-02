@@ -6,8 +6,7 @@ import { eq } from "drizzle-orm";
 export const { GET } = initGoogleAuth({
   redirectURL: process.env.NEXT_PUBLIC_BASE_URL + "/dashboard",
   getUserIdFromEmail: async ({ email, name }, data) => {
-    if (!data || !email) return null;
-    const onboardingData = JSON.parse(data);
+    if (!email) return null;
 
     const [existingUser] = await db
       .select()
@@ -17,6 +16,9 @@ export const { GET } = initGoogleAuth({
     if (existingUser) {
       return existingUser.id;
     } else if (name && email) {
+      if (!data) return null;
+      const onboardingData = JSON.parse(data);
+
       const [newUser] = await db
         .insert(UserTable)
         .values({
