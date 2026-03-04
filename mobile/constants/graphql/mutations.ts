@@ -1,5 +1,4 @@
-import { gql } from "@/__generated__";
-import gqlTag from "graphql-tag";
+import { gql } from "../../__generated__";
 
 export const ONBOARD_USER = gql(`
   #graphql
@@ -8,27 +7,20 @@ export const ONBOARD_USER = gql(`
   }
 `);
 
-export const UPDATE_USER = gqlTag`
+export const UPDATE_USER = gql(`
   mutation UpdateUser($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      id
-      name
-      email
-      placeOfBirth
-      timezoneOffset
-      gender
-    }
+    updateUser(input: $input)
   }
-`;
+`);
 
-export const UPDATE_USER_CHART = gqlTag`
+export const UPDATE_USER_CHART = gql(`
   mutation UpdateUserChart($input: UpdateUserChartInput!) {
     updateUserChart(input: $input)
   }
-`;
+`);
 
-export const SUBMIT_FEEDBACK = gqlTag`
+export const SUBMIT_FEEDBACK = gql(`
   mutation SubmitFeedback($input: SubmitFeedbackInput!) {
     submitFeedback(input: $input)
   }
-`;
+`);

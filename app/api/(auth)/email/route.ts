@@ -3,8 +3,9 @@ import { db } from "@/app/api/lib/db";
 import { UserTable } from "@/app/api/(graphql)/User/db";
 import { eq } from "drizzle-orm";
 
-export const { GET, POST, PUT, DELETE } = getEmailAuthRoutes({
+export const { GET, POST, PUT, DELETE, OPTIONS } = getEmailAuthRoutes({
   createUser: async (data) => {
+    console.log(data);
     const [user] = await db.insert(UserTable).values(data).returning();
     return user;
   },
@@ -15,4 +16,5 @@ export const { GET, POST, PUT, DELETE } = getEmailAuthRoutes({
       .where(eq(UserTable.email, email));
     return user;
   },
+  allowedOrigins: ["http://localhost:8081"],
 });

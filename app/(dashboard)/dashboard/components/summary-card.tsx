@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useAuthQuery } from "naystack/graphql/client";
-import { GET_SUMMARY } from "@/constants/graphql/queries";
+import { GET_SUMMARY } from "@/mobile/constants/graphql/queries";
 import { ChartSummaryType } from "@/__generated__/graphql";
 import { ArrowUpRight, X, IconProps } from "@phosphor-icons/react";
 import Loader from "@/components/loader";
@@ -93,9 +93,10 @@ export default function SummaryCard({
         <button
           onClick={handleFetchSummary}
           className={`absolute top-4 right-4 z-20 flex items-center justify-center transition-all duration-300 rounded-full aspect-square shadow-sm
-            ${bgImage
-              ? "bg-white/20 hover:bg-white text-white hover:text-black backdrop-blur-md border-white/10"
-              : "bg-white border border-black/5 text-black/60 group-hover:bg-[#1a1a1a] group-hover:text-white"
+            ${
+              bgImage
+                ? "bg-white/20 hover:bg-white text-white hover:text-black backdrop-blur-md border-white/10"
+                : "bg-white border border-black/5 text-black/60 group-hover:bg-[#1a1a1a] group-hover:text-white"
             }
           `}
           style={{ width: compact ? 28 : 36 }}
@@ -116,7 +117,6 @@ export default function SummaryCard({
             </div>
           )}
           {bgImage && <div />} {/* Spacer */}
-
           <div className="z-20 relative">
             {/* Subtitle / Label */}
             <p
@@ -180,7 +180,9 @@ export default function SummaryCard({
               <div className="relative p-6 overflow-y-auto bg-white">
                 {summary ? (
                   <div
-                    dangerouslySetInnerHTML={{ __html: renderRichText(summary) }}
+                    dangerouslySetInnerHTML={{
+                      __html: renderRichText(summary),
+                    }}
                     className="prose prose-sm max-w-none text-black prose-headings:font-editorial prose-headings:font-bold prose-p:font-sans prose-p:font-medium text-lg leading-tight"
                   />
                 ) : (

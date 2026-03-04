@@ -11,7 +11,7 @@ import Modal from "@/components/modal";
 import { Button } from "@/components/button";
 import Form from "@/components/form";
 import Input from "@/components/input/input";
-import { SUBMIT_FEEDBACK } from "@/constants/graphql/mutations";
+import { SUBMIT_FEEDBACK } from "@/mobile/constants/graphql/mutations";
 import { MAXIMUM_MESSAGES } from "@/app/api/(graphql)/Chat/constants";
 
 const SATISFACTION_OPTIONS = [

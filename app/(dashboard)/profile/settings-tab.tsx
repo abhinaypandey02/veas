@@ -8,7 +8,10 @@ import Link from "next/link";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import Form from "@/components/form";
-import { UPDATE_USER, UPDATE_USER_CHART } from "@/constants/graphql/mutations";
+import {
+  UPDATE_USER,
+  UPDATE_USER_CHART,
+} from "@/mobile/constants/graphql/mutations";
 import {
   searchLocation,
   SearchPlaceResponse,
@@ -18,7 +21,7 @@ import {
 } from "@/utils/location";
 import type { QueryResponseType } from "naystack/graphql";
 import type getCurrentUser from "@/app/api/(graphql)/User/resolvers/get-current-user";
-import { Gender } from "@/app/api/(graphql)/User/enum";
+import { Gender } from "@/__generated__/graphql";
 
 const GENDER_OPTIONS = Object.values(Gender).map((g) => ({
   label: g,
@@ -68,14 +71,13 @@ function UserInfoSection({
     try {
       await updateUser({
         name: data.name,
-        gender: data.gender || undefined,
+        gender: (data.gender as Gender) || undefined,
       });
       setMessage("Saved!");
     } catch (error) {
       setMessage((error as Error).message || "Something went wrong.");
     }
   };
-
   return (
     <div>
       <h2 className="text-lg font-editorial mb-4">Your Info</h2>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthMutation } from "naystack/graphql/client";
-import { ONBOARD_USER } from "@/constants/graphql/mutations";
+import { ONBOARD_USER } from "@/mobile/constants/graphql/mutations";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/input";
 import {
@@ -78,7 +78,7 @@ export default function OnboardForm({
 
   const handleSubmit = async (data: FormType) => {
     const selectedPlace = places.find((p) => p.place_id === Number(data.place));
-    console.log(selectedPlace,timezone);
+    console.log(selectedPlace, timezone);
     if (!selectedPlace || timezone === undefined) {
       form.setError("place", {
         message: "Please select a valid place",

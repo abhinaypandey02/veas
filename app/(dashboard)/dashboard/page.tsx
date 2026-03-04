@@ -4,26 +4,19 @@ import { useState, useEffect } from "react";
 import SummaryCards from "./components/summary-cards";
 import DashboardHeader from "./components/dashboard-header";
 import PremiumBanner from "./components/premium-banner";
-import { CosmicGraphic } from "@/components/CosmicGraphic"; // Note: CosmicGraphic might need adjustment for light mode visibility
 import { X } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAuthQuery } from "naystack/graphql/client";
-import { GET_CURRENT_USER } from "@/constants/graphql/queries";
-
-interface GetCurrentUserResponse {
-  getCurrentUser: {
-    name: string;
-  } | null;
-}
+import { GET_CURRENT_USER } from "@/mobile/constants/graphql/queries";
 
 export default function Page() {
   const [showPremium, setShowPremium] = useState(false);
-  const [getUser, { data: userData }] = useAuthQuery<GetCurrentUserResponse, {}>(GET_CURRENT_USER);
+  const [getUser, { data: userData }] = useAuthQuery(GET_CURRENT_USER);
   const userName = userData?.getCurrentUser?.name || "User";
 
   // Fetch user data on mount
   useEffect(() => {
-    getUser({});
+    getUser();
   }, [getUser]);
 
   return (

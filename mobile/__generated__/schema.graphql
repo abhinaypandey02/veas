@@ -248,6 +248,12 @@ enum ChatRole {
   user
 }
 
+type CurrentMahadasha {
+  end: String!
+  planet: String!
+  start: String!
+}
+
 type D1Planet {
   house: Float!
   name: String!
@@ -259,12 +265,21 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTimeISO
 
+enum Gender {
+  Female
+  Male
+  NonBinary
+}
+
 input GetSummaryInput {
   type: ChartSummaryType!
 }
 
 type Mutation {
   onboardUser(input: OnboardUserInput!): Float!
+  submitFeedback(input: SubmitFeedbackInput!): Boolean!
+  updateUser(input: UpdateUserInput!): Boolean!
+  updateUserChart(input: UpdateUserChartInput!): Float!
 }
 
 input OnboardUserInput {
@@ -274,17 +289,48 @@ input OnboardUserInput {
   timezone: Float!
 }
 
+type PlanetsResponse {
+  currentMahadasha: CurrentMahadasha
+  planets: [D1Planet!]!
+}
+
 type Query {
   getChats: [Chat!]!
   getCurrentUser: User
-  getPlanets: [D1Planet!]!
+  getPlanets: PlanetsResponse!
   getSummary(input: GetSummaryInput!): String
   __schema: __Schema!
   __type(name: String!): __Type
 }
 
+input SubmitFeedbackInput {
+  score: Float!
+  text: String
+}
+
+input UpdateUserChartInput {
+  dateOfBirth: DateTimeISO!
+  lat: Float!
+  long: Float!
+  placeOfBirth: String
+  timezoneOffset: Float
+}
+
+input UpdateUserInput {
+  gender: Gender
+  name: String
+  placeOfBirth: String
+  timezoneOffset: Float
+}
+
 type User {
+  dateOfBirth: DateTimeISO
   email: String!
+  gender: Gender
   id: Float!
   name: String!
+  placeOfBirth: String
+  placeOfBirthLat: Float
+  placeOfBirthLong: Float
+  timezoneOffset: Float
 }

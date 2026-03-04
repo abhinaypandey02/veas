@@ -1,5 +1,4 @@
-import { gql } from "@/__generated__";
-import gqlTag from "graphql-tag";
+import { gql } from "../../__generated__";
 
 export const GET_SUMMARY = gql(`
   #graphql
@@ -8,7 +7,7 @@ export const GET_SUMMARY = gql(`
   }
 `);
 
-export const GET_CURRENT_USER = gqlTag`
+export const GET_CURRENT_USER = gql(`
   query GetCurrentUser {
     getCurrentUser {
       id
@@ -22,4 +21,4 @@ export const GET_CURRENT_USER = gqlTag`
       placeOfBirthLong
     }
   }
-`;
+`);

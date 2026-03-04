@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ApolloWrapper } from "naystack/graphql/client";
+import { ApolloWrapper } from "naystack/graphql/next";
 import { AuthWrapper } from "naystack/auth/email/client";
 import localFont from "next/font/local";
+import { AuthFetch } from "naystack/auth";
 
 const serif = localFont({
   src: [
@@ -42,7 +43,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sans.className} ${serif.variable} antialiased`}>
         <AuthWrapper>
-          <ApolloWrapper>{children}</ApolloWrapper>
+          <ApolloWrapper>
+            <AuthFetch />
+            {children}
+          </ApolloWrapper>
         </AuthWrapper>
       </body>
     </html>
