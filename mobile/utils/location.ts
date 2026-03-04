@@ -27,6 +27,10 @@ export async function searchTimezone(
   return response.gmtOffset;
 }
 
+export interface SearchTimezoneResponse {
+  gmtOffset: number;
+}
+
 export function getUTCDate(date: Date, timezoneOffset: number) {
   const localDate = new Date(date);
   localDate.setMinutes(
@@ -34,5 +38,11 @@ export function getUTCDate(date: Date, timezoneOffset: number) {
       timezoneOffset * 60 -
       new Date().getTimezoneOffset(),
   );
+  return localDate;
+}
+
+export function getLocalTime(date: Date, timezoneOffset: number) {
+  const localDate = new Date(date);
+  localDate.setMinutes(localDate.getMinutes() + timezoneOffset * 60);
   return localDate;
 }
