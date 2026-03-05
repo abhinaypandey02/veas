@@ -5,5 +5,5 @@ import { FeedbackResolvers } from "./Feedback/graphql";
 
 export const { GET, OPTIONS, POST } = await initGraphQLServer({
   resolvers: [UserResolvers, ChatResolvers, FeedbackResolvers],
-  allowedOrigins: ["http://localhost:8081"],
+  allowedOrigins: ["http://localhost:8081", "https://app.veasapp.com"],
 });
