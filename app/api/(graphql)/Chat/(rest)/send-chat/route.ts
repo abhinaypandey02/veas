@@ -11,17 +11,15 @@ import { ChatStreamRole } from "../../enum";
 import { ERROR_MESSAGES, MAXIMUM_MESSAGES } from "../../constants";
 import { getCorsHeaders } from "@/app/api/lib/cors";
 
-const ALLOWED_ORIGINS = ["https://app.veasapp.com", "http://localhost:8081"];
-
 export const OPTIONS = async (req: NextRequest) => {
   return new NextResponse(null, {
     status: 204,
-    headers: getCorsHeaders(req, ALLOWED_ORIGINS),
+    headers: getCorsHeaders(req),
   });
 };
 
 export const POST = async (req: NextRequest) => {
-  const corsHeaders = getCorsHeaders(req, ALLOWED_ORIGINS);
+  const corsHeaders = getCorsHeaders(req);
   const ctx = await getContext(req);
   if (!ctx?.userId)
     return new NextResponse("Unauthorized", {
