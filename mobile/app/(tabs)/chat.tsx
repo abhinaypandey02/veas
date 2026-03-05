@@ -22,6 +22,7 @@ import { SUBMIT_FEEDBACK } from "@/constants/graphql/mutations";
 import { useStreaming } from "@/hooks/use-streaming";
 import { parseRichText } from "@/utils/chat";
 import { Fonts } from "@/constants/theme";
+import { PaywallModal } from "@/components/PaywallModal";
 
 interface ChatMessage {
   message: string;
@@ -59,6 +60,7 @@ export default function ChatScreen() {
   const [toolMessage, setToolMessage] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [firstTouch, setFirstTouch] = useState(false);
+  const [paywallOpen, setPaywallOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedbackScore, setFeedbackScore] = useState("");
   const [feedbackText, setFeedbackText] = useState("");
@@ -163,7 +165,8 @@ export default function ChatScreen() {
         },
         onError: (errMsg) => {
           if (errMsg === ERROR_MESSAGES.FREE_LIMIT_REACHED) {
-            setFeedbackOpen(true);
+            setChats((prev) => prev.slice(0, -1));
+            setPaywallOpen(true);
           } else if (errMsg === ERROR_MESSAGES.PRO_LIMIT_REACHED) {
             setFeedbackOpen(true);
           } else {
@@ -372,6 +375,12 @@ export default function ChatScreen() {
         {/* Extra space for bottom tab bar */}
         <View style={{ height: 80 }} />
       </KeyboardAvoidingView>
+
+      {/* Paywall Modal */}
+      <PaywallModal
+        visible={paywallOpen}
+        onClose={() => setPaywallOpen(false)}
+      />
 
       {/* Feedback Modal */}
       <Modal
