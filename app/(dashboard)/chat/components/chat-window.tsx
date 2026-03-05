@@ -108,7 +108,7 @@ export function ChatWindow({
         );
       },
       onError: (message) => {
-        if (message === ERROR_MESSAGES.FREE_TIER_LIMIT_REACHED) {
+        if (message === ERROR_MESSAGES.CHAT_LIMIT_REACHED) {
           setFeedbackOpen(true);
           return;
         } else setErrorMessage(message);
