@@ -5,9 +5,11 @@ export enum ChatStreamRole {
 }
 
 export const MAXIMUM_MESSAGES = {
-  BETA: 5,
+  FREE_TIER: 5,
+  FREE_DAILY_LIMIT: 1,
+  PRO_DAILY_LIMIT: 20,
 };
 
 export const ERROR_MESSAGES = {
-  BETA: "BETA_LIMIT_REACHED",
+  FREE_TIER_LIMIT_REACHED: "FREE_TIER_LIMIT_REACHED",
 };

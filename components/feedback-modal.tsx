@@ -83,7 +83,7 @@ export default function FeedbackModal({
         <p className="text-sm text-gray-600">
           Oh and also, we only allow{" "}
           <b className="font-semibold">
-            {MAXIMUM_MESSAGES.BETA} messages per user
+            {MAXIMUM_MESSAGES.FREE_TIER} messages per user
           </b>{" "}
           for now. If you need more, please let us know :D
         </p>

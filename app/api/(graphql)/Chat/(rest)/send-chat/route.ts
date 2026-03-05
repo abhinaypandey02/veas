@@ -36,8 +36,11 @@ export const POST = async (req: NextRequest) => {
     )
     .orderBy(ChatTable.createdAt, ChatTable.id);
 
-  if (chats.length >= MAXIMUM_MESSAGES.BETA * 2) {
-    return new NextResponse(ERROR_MESSAGES.BETA, {
+  if (
+    chats.filter((chat) => chat.role === ChatRole.User).length >=
+    MAXIMUM_MESSAGES.FREE_TIER * 2
+  ) {
+    return new NextResponse(ERROR_MESSAGES.FREE_TIER_LIMIT_REACHED, {
       status: 403,
       headers: corsHeaders,
     });

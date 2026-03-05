@@ -124,11 +124,6 @@ export default function ChatScreen() {
       const msg = (text || message).trim();
       if (!msg || isLoading) return;
 
-      if (chats.length >= MAXIMUM_MESSAGES.BETA * 2) {
-        setFeedbackOpen(true);
-        return;
-      }
-
       setMessage("");
       Keyboard.dismiss();
       setIsLoading(true);
@@ -167,7 +162,7 @@ export default function ChatScreen() {
           );
         },
         onError: (errMsg) => {
-          if (errMsg === ERROR_MESSAGES.BETA) {
+          if (errMsg === ERROR_MESSAGES.FREE_TIER_LIMIT_REACHED) {
             setFeedbackOpen(true);
             return;
           }
@@ -398,7 +393,7 @@ export default function ChatScreen() {
             <Text style={styles.modalText}>
               Oh and also, we only allow{" "}
               <Text style={styles.bold}>
-                {MAXIMUM_MESSAGES.BETA} messages per user
+                {MAXIMUM_MESSAGES.FREE_TIER} messages per user
               </Text>{" "}
               for now. If you need more, please let us know :D
             </Text>
