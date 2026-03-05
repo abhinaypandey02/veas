@@ -14,26 +14,17 @@ import {
   useToken,
 } from "naystack/auth/email/client";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { ApolloWrapper, useAuthQuery } from "naystack/graphql/client";
+import { ApolloWrapper } from "naystack/graphql/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
-import {
-  configureRevenueCat,
-  identifyRevenueCatUser,
-  resetRevenueCatUser,
-} from "@/services/revenuecat";
-import { GET_CURRENT_USER } from "@/constants/graphql/queries";
+import { GlobalStateProvider } from "@/contexts/global-context";
 
 addEnv("GRAPHQL_ENDPOINT", process.env.EXPO_PUBLIC_GRAPHQL_ENDPOINT!);
 addEnv("EMAIL_AUTH_ENDPOINT", process.env.EXPO_PUBLIC_EMAIL_AUTH_ENDPOINT!);
 addEnv("BASE_URL", process.env.EXPO_PUBLIC_BASE_URL!);
 
 export default function LayoutWrapper() {
-  useEffect(() => {
-    configureRevenueCat();
-  }, []);
-
   return (
     <AuthWrapper
       onTokenUpdate={
@@ -49,7 +40,9 @@ export default function LayoutWrapper() {
       }
     >
       <ApolloWrapper>
-        <RootLayout />
+        <GlobalStateProvider>
+          <RootLayout />
+        </GlobalStateProvider>
       </ApolloWrapper>
     </AuthWrapper>
   );
@@ -60,26 +53,12 @@ function RootLayout() {
   const token = useToken();
   const segments = useSegments();
   const router = useRouter();
-  const [getUser] = useAuthQuery(GET_CURRENT_USER);
 
   useAuthFetch(
     !process.env.EXPO_PUBLIC_IS_BROWSER
       ? () => AsyncStorage.getItem("refresh")
       : undefined,
   );
-
-  useEffect(() => {
-    if (token) {
-      getUser().then((result) => {
-        const userId = result?.data?.getCurrentUser?.id;
-        if (userId) {
-          identifyRevenueCatUser(userId.toString());
-        }
-      });
-    } else if (token === null) {
-      resetRevenueCatUser();
-    }
-  }, [token]);
 
   useEffect(() => {
     // token === undefined means still loading

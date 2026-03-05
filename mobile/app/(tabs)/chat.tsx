@@ -17,8 +17,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthQuery, useAuthMutation } from "naystack/graphql/client";
 import { ChatRole } from "@/__generated__/graphql";
 import { MAXIMUM_MESSAGES, ERROR_MESSAGES } from "@/constants/chat";
-import { GET_CHATS, GET_CURRENT_USER } from "@/constants/graphql/queries";
+import { GET_CHATS } from "@/constants/graphql/queries";
 import { SUBMIT_FEEDBACK } from "@/constants/graphql/mutations";
+import { useGlobalState } from "@/contexts/global-context";
 import { useStreaming } from "@/hooks/use-streaming";
 import { parseRichText } from "@/utils/chat";
 import { Fonts } from "@/constants/theme";
@@ -48,8 +49,8 @@ const SATISFACTION_OPTIONS = [
 ];
 
 export default function ChatScreen() {
+  const { currentUser } = useGlobalState();
   const [getChats, { data: chatsData }] = useAuthQuery(GET_CHATS);
-  const [getUser, { data: userData }] = useAuthQuery(GET_CURRENT_USER);
   const [submitFeedback, { loading: feedbackLoading }] =
     useAuthMutation(SUBMIT_FEEDBACK);
 
@@ -75,7 +76,6 @@ export default function ChatScreen() {
   // Fetch initial data
   useEffect(() => {
     getChats();
-    getUser();
   }, []);
 
   // Set initial chats from GraphQL data
@@ -203,7 +203,7 @@ export default function ChatScreen() {
     setFeedbackText("");
   };
 
-  const userName = userData?.getCurrentUser?.name || "";
+  const userName = currentUser?.name || "";
 
   const renderMessageBubble = (
     chat: ChatMessage,
