@@ -15,7 +15,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthQuery, useAuthMutation } from "naystack/graphql/client";
-import { ChatRole, MAXIMUM_MESSAGES, ERROR_MESSAGES } from "@/constants/chat";
+import { ChatRole } from "@/__generated__/graphql";
+import { MAXIMUM_MESSAGES, ERROR_MESSAGES } from "@/constants/chat";
 import { GET_CHATS, GET_CURRENT_USER } from "@/constants/graphql/queries";
 import { SUBMIT_FEEDBACK } from "@/constants/graphql/mutations";
 import { useStreaming } from "@/hooks/use-streaming";
@@ -140,12 +141,12 @@ export default function ChatScreen() {
         {
           message: msg,
           createdAt: userDate,
-          role: ChatRole.user,
+          role: ChatRole.User,
         },
         {
           message: "",
           createdAt: assistantDate,
-          role: ChatRole.assistant,
+          role: ChatRole.Assistant,
         },
       ]);
 
@@ -205,7 +206,7 @@ export default function ChatScreen() {
   const userName = userData?.getCurrentUser?.name || "";
 
   const renderMessageBubble = (chat: ChatMessage, paragraphIndex: number, paragraph: string) => {
-    const isUser = chat.role === ChatRole.user;
+    const isUser = chat.role === ChatRole.User;
 
     return (
       <View

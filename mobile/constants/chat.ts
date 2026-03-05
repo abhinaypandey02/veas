@@ -1,9 +1,3 @@
-export enum ChatRole {
-  summary = "summary",
-  user = "user",
-  assistant = "assistant",
-}
-
 export enum ChatStreamRole {
   Tool = 0,
   Response = 1,
