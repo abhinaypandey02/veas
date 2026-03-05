@@ -52,9 +52,9 @@ function RootLayout() {
   const router = useRouter();
 
   useAuthFetch(
-    !!process.env.EXPO_PUBLIC_IS_BROWSER
-      ? undefined
-      : () => AsyncStorage.getItem("refresh"),
+    !process.env.EXPO_PUBLIC_IS_BROWSER
+      ? () => AsyncStorage.getItem("refresh")
+      : undefined,
   );
 
   useEffect(() => {
