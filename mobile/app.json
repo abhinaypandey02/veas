@@ -9,9 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
+      "bundleIdentifier": "com.naystack.veas",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.naystack.veas",
       "adaptiveIcon": {
         "backgroundColor": "#000000",
         "foregroundImage": "./assets/images/icon.png"
@@ -42,6 +44,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "21a609cc-d554-4c2d-a1b5-61f8f50f4ff5"
+      }
     }
   }
 }
