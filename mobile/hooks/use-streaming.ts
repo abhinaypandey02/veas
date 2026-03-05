@@ -4,7 +4,7 @@ import { ChatStreamRole } from "@/constants/chat";
 
 export function useStreaming(path: string) {
   const token = useToken();
-  const url = `${process.env.EXPO_PUBLIC_GRAPHQL_BASE_URL}${path}`;
+  const url = `${process.env.EXPO_PUBLIC_GRAPHQL_ENDPOINT}${path}`;
 
   return useCallback(
     (

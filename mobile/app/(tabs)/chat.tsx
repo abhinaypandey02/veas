@@ -68,7 +68,7 @@ export default function ChatScreen() {
 
   const flatListRef = useRef<FlatList>(null);
   const inputRef = useRef<TextInput>(null);
-  const stream = useStreaming("/api/Chat/send-chat");
+  const stream = useStreaming("/Chat/send-chat");
 
   // Fetch initial data
   useEffect(() => {
@@ -162,8 +162,8 @@ export default function ChatScreen() {
             prev.map((chat) =>
               chat.createdAt === assistantDate
                 ? { ...chat, message: chat.message + responseMsg }
-                : chat
-            )
+                : chat,
+            ),
           );
         },
         onError: (errMsg) => {
@@ -179,7 +179,7 @@ export default function ChatScreen() {
         },
       });
     },
-    [message, isLoading, chats.length, stream]
+    [message, isLoading, chats.length, stream],
   );
 
   const handleFeedbackSubmit = async () => {
@@ -205,7 +205,11 @@ export default function ChatScreen() {
 
   const userName = userData?.getCurrentUser?.name || "";
 
-  const renderMessageBubble = (chat: ChatMessage, paragraphIndex: number, paragraph: string) => {
+  const renderMessageBubble = (
+    chat: ChatMessage,
+    paragraphIndex: number,
+    paragraph: string,
+  ) => {
     const isUser = chat.role === ChatRole.User;
 
     return (
@@ -249,11 +253,12 @@ export default function ChatScreen() {
 
   // Flatten chats into renderable items (split by \n\n)
   const renderItems = chats.flatMap((chat) => {
-    const paragraphs = chat.message
-      .split("\n\n")
-      .map((line) => line.trim());
+    const paragraphs = chat.message.split("\n\n").map((line) => line.trim());
     // If message is empty (loading state), still render one item
-    if (paragraphs.length === 0 || (paragraphs.length === 1 && paragraphs[0] === "")) {
+    if (
+      paragraphs.length === 0 ||
+      (paragraphs.length === 1 && paragraphs[0] === "")
+    ) {
       return [{ chat, paragraphIndex: 0, paragraph: "" }];
     }
     return paragraphs.map((paragraph, i) => ({
@@ -291,7 +296,11 @@ export default function ChatScreen() {
               `${item.chat.createdAt}-${item.chat.role}-${item.paragraphIndex}`
             }
             renderItem={({ item }) =>
-              renderMessageBubble(item.chat, item.paragraphIndex, item.paragraph)
+              renderMessageBubble(
+                item.chat,
+                item.paragraphIndex,
+                item.paragraph,
+              )
             }
             contentContainerStyle={styles.messagesContent}
             onContentSizeChange={() =>
@@ -303,9 +312,7 @@ export default function ChatScreen() {
         {/* Error message */}
         {errorMessage ? (
           <View style={styles.errorContainer}>
-            <Text style={styles.errorText}>
-              {parseRichText(errorMessage)}
-            </Text>
+            <Text style={styles.errorText}>{parseRichText(errorMessage)}</Text>
           </View>
         ) : null}
 
@@ -381,11 +388,11 @@ export default function ChatScreen() {
             <Text style={styles.modalTitle}>We love you ❤️</Text>
 
             <Text style={styles.modalText}>
-              Dear {userName.split(" ")[0]},
-              {"\n"}Thanks a lot for using our app! This means so much to us 🥳
-              {"\n"}We are currently in{" "}
-              <Text style={styles.bold}>beta</Text> and improving our app. We
-              need your feedback to make this experience better!
+              Dear {userName.split(" ")[0]},{"\n"}Thanks a lot for using our
+              app! This means so much to us 🥳
+              {"\n"}We are currently in <Text style={styles.bold}>beta</Text>{" "}
+              and improving our app. We need your feedback to make this
+              experience better!
             </Text>
 
             <Text style={styles.modalText}>
@@ -396,9 +403,7 @@ export default function ChatScreen() {
               for now. If you need more, please let us know :D
             </Text>
 
-            <Text style={styles.modalText}>
-              With love,{"\n"}Veas team
-            </Text>
+            <Text style={styles.modalText}>With love,{"\n"}Veas team</Text>
 
             {!showFeedbackForm && !feedbackSubmitted ? (
               <View style={styles.modalActions}>
@@ -416,9 +421,7 @@ export default function ChatScreen() {
 
             {showFeedbackForm && !feedbackSubmitted ? (
               <View style={styles.feedbackForm}>
-                <Text style={styles.feedbackLabel}>
-                  How satisfied are you?
-                </Text>
+                <Text style={styles.feedbackLabel}>How satisfied are you?</Text>
                 <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -466,9 +469,7 @@ export default function ChatScreen() {
                   {feedbackLoading ? (
                     <ActivityIndicator size="small" color="#fff" />
                   ) : (
-                    <Text style={styles.submitButtonText}>
-                      Submit Feedback
-                    </Text>
+                    <Text style={styles.submitButtonText}>Submit Feedback</Text>
                   )}
                 </TouchableOpacity>
               </View>
