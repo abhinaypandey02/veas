@@ -32,6 +32,10 @@ export function useStreaming(url: string) {
             return onError("No response body");
           }
 
+          if (!res.ok) {
+            return onError?.(await res.text());
+          }
+
           const reader = res.body.getReader();
           const decoder = new TextDecoder();
 
