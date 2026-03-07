@@ -14,22 +14,24 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  #graphql\n  mutation OnboardUser($input: OnboardUserInput!) {\n    onboardUser(input: $input)\n  }\n": typeof types.OnboardUserDocument,
-    "\n  mutation UpdateUser($input: UpdateUserInput!) {\n    updateUser(input: $input)\n  }\n": typeof types.UpdateUserDocument,
-    "\n  mutation UpdateUserChart($input: UpdateUserChartInput!) {\n    updateUserChart(input: $input)\n  }\n": typeof types.UpdateUserChartDocument,
-    "\n  mutation SubmitFeedback($input: SubmitFeedbackInput!) {\n    submitFeedback(input: $input)\n  }\n": typeof types.SubmitFeedbackDocument,
-    "\n  #graphql\n  query GetSummary($input: GetSummaryInput!) {\n    getSummary(input: $input)\n  }\n": typeof types.GetSummaryDocument,
-    "\n  query GetCurrentUser {\n    getCurrentUser {\n      id\n      email\n      name\n      placeOfBirth\n      timezoneOffset\n      gender\n      dateOfBirth\n      placeOfBirthLat\n      placeOfBirthLong\n    }\n  }\n": typeof types.GetCurrentUserDocument,
-    "\n  query GetChats {\n    getChats {\n      message\n      role\n      createdAt\n    }\n  }\n": typeof types.GetChatsDocument,
+  "\n  #graphql\n  mutation OnboardUser($input: OnboardUserInput!) {\n    onboardUser(input: $input)\n  }\n": typeof types.OnboardUserDocument,
+  "\n  mutation UpdateUser($input: UpdateUserInput!) {\n    updateUser(input: $input)\n  }\n": typeof types.UpdateUserDocument,
+  "\n  mutation UpdateUserChart($input: UpdateUserChartInput!) {\n    updateUserChart(input: $input)\n  }\n": typeof types.UpdateUserChartDocument,
+  "\n  mutation SubmitFeedback($input: SubmitFeedbackInput!) {\n    submitFeedback(input: $input)\n  }\n": typeof types.SubmitFeedbackDocument,
+  "\n  #graphql\n  query GetSummary($input: GetSummaryInput!) {\n    getSummary(input: $input)\n  }\n": typeof types.GetSummaryDocument,
+  "\n  query GetCurrentUser {\n    getCurrentUser {\n      id\n      email\n      name\n      placeOfBirth\n      timezoneOffset\n      gender\n      dateOfBirth\n      placeOfBirthLat\n      placeOfBirthLong\n    }\n  }\n": typeof types.GetCurrentUserDocument,
+  "\n  query GetPlanets {\n    getPlanets {\n      planets {\n        name\n        sign\n        house\n      }\n      currentMahadasha {\n        planet\n        start\n        end\n      }\n    }\n  }\n": typeof types.GetPlanetsDocument,
+  "\n  query GetChats {\n    getChats {\n      message\n      role\n      createdAt\n    }\n  }\n": typeof types.GetChatsDocument,
 };
 const documents: Documents = {
-    "\n  #graphql\n  mutation OnboardUser($input: OnboardUserInput!) {\n    onboardUser(input: $input)\n  }\n": types.OnboardUserDocument,
-    "\n  mutation UpdateUser($input: UpdateUserInput!) {\n    updateUser(input: $input)\n  }\n": types.UpdateUserDocument,
-    "\n  mutation UpdateUserChart($input: UpdateUserChartInput!) {\n    updateUserChart(input: $input)\n  }\n": types.UpdateUserChartDocument,
-    "\n  mutation SubmitFeedback($input: SubmitFeedbackInput!) {\n    submitFeedback(input: $input)\n  }\n": types.SubmitFeedbackDocument,
-    "\n  #graphql\n  query GetSummary($input: GetSummaryInput!) {\n    getSummary(input: $input)\n  }\n": types.GetSummaryDocument,
-    "\n  query GetCurrentUser {\n    getCurrentUser {\n      id\n      email\n      name\n      placeOfBirth\n      timezoneOffset\n      gender\n      dateOfBirth\n      placeOfBirthLat\n      placeOfBirthLong\n    }\n  }\n": types.GetCurrentUserDocument,
-    "\n  query GetChats {\n    getChats {\n      message\n      role\n      createdAt\n    }\n  }\n": types.GetChatsDocument,
+  "\n  #graphql\n  mutation OnboardUser($input: OnboardUserInput!) {\n    onboardUser(input: $input)\n  }\n": types.OnboardUserDocument,
+  "\n  mutation UpdateUser($input: UpdateUserInput!) {\n    updateUser(input: $input)\n  }\n": types.UpdateUserDocument,
+  "\n  mutation UpdateUserChart($input: UpdateUserChartInput!) {\n    updateUserChart(input: $input)\n  }\n": types.UpdateUserChartDocument,
+  "\n  mutation SubmitFeedback($input: SubmitFeedbackInput!) {\n    submitFeedback(input: $input)\n  }\n": types.SubmitFeedbackDocument,
+  "\n  #graphql\n  query GetSummary($input: GetSummaryInput!) {\n    getSummary(input: $input)\n  }\n": types.GetSummaryDocument,
+  "\n  query GetCurrentUser {\n    getCurrentUser {\n      id\n      email\n      name\n      placeOfBirth\n      timezoneOffset\n      gender\n      dateOfBirth\n      placeOfBirthLat\n      placeOfBirthLong\n    }\n  }\n": types.GetCurrentUserDocument,
+  "\n  query GetPlanets {\n    getPlanets {\n      planets {\n        name\n        sign\n        house\n      }\n      currentMahadasha {\n        planet\n        start\n        end\n      }\n    }\n  }\n": types.GetPlanetsDocument,
+  "\n  query GetChats {\n    getChats {\n      message\n      role\n      createdAt\n    }\n  }\n": types.GetChatsDocument,
 };
 
 /**
@@ -74,9 +76,13 @@ export function gql(source: "\n  query GetCurrentUser {\n    getCurrentUser {\n 
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query GetChats {\n    getChats {\n      message\n      role\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  query GetChats {\n    getChats {\n      message\n      role\n      createdAt\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetPlanets {\n    getPlanets {\n      planets {\n        name\n        sign\n        house\n      }\n      currentMahadasha {\n        planet\n        start\n        end\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetPlanets {\n    getPlanets {\n      planets {\n        name\n        sign\n        house\n      }\n      currentMahadasha {\n        planet\n        start\n        end\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;

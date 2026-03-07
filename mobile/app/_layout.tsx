@@ -1,3 +1,4 @@
+import "react-native-url-polyfill/auto";
 import { addEnv } from "naystack/env";
 
 import {
