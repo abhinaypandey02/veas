@@ -10,6 +10,7 @@ import { decompressChartData } from "@/app/api/lib/charts/utils/compress";
 import { ChatStreamRole } from "../../enum";
 import { getCorsHeaders } from "@/app/api/lib/cors";
 import { getAvailableUsage } from "@/app/api/(graphql)/Chat/(rest)/send-chat/utils";
+import { MESSAGE_CHAR_LIMIT } from "@/mobile/constants/chat";
 
 export const OPTIONS = async (req: NextRequest) => {
   return new NextResponse(null, {
@@ -26,7 +27,7 @@ export const POST = async (req: NextRequest) => {
       status: 401,
       headers: corsHeaders,
     });
-  const message = await req.text();
+  const message = (await req.text()).slice(0, MESSAGE_CHAR_LIMIT);
 
   const chats = await db
     .select()

@@ -14,6 +14,7 @@ import { useStreaming } from "./streaming";
 import { ERROR_MESSAGES } from "@/app/api/(graphql)/Chat/constants";
 import FeedbackModal from "@/components/feedback-modal";
 import getCurrentUser from "@/app/api/(graphql)/User/resolvers/get-current-user";
+import { MESSAGE_CHAR_LIMIT } from "@/mobile/constants/chat";
 
 export function ChatWindow({
   data,
@@ -240,6 +241,8 @@ export function ChatWindow({
         <div className="flex items-end gap-2 max-w-4xl mx-auto relative">
           <div className="flex-1 relative">
             <Input
+              maxLength={MESSAGE_CHAR_LIMIT}
+              rules={{ maxLength: MESSAGE_CHAR_LIMIT }}
               loading={isLoading}
               disabled={isLoading}
               autoFocus

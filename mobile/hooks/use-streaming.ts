@@ -29,6 +29,10 @@ export function useStreaming(path: string) {
       xhr.setRequestHeader("Content-Type", "text/plain");
 
       xhr.onprogress = () => {
+        if (xhr.status !== 200) {
+          onError(xhr.responseText);
+          return;
+        }
         const newData = xhr.responseText.substring(lastIndex);
         lastIndex = xhr.responseText.length;
 
@@ -51,6 +55,10 @@ export function useStreaming(path: string) {
       };
 
       xhr.onload = () => {
+        if (xhr.status !== 200) {
+          onError(xhr.responseText);
+          return;
+        }
         // Process any remaining data
         const newData = xhr.responseText.substring(lastIndex);
         newData.split("\n").forEach((line) => {
@@ -65,6 +73,7 @@ export function useStreaming(path: string) {
                 onError(json.message);
               }
             } catch {
+              if (line) onError(line);
               // Skip malformed JSON lines
             }
           }
@@ -73,6 +82,10 @@ export function useStreaming(path: string) {
       };
 
       xhr.onerror = () => {
+        if (xhr.status !== 200) {
+          onError(xhr.responseText);
+          return;
+        }
         onError(
           "Sorry, something went wrong while generating a response. Please try again.",
         );

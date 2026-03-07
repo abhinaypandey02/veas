@@ -9,11 +9,11 @@ import { SubscriptionType } from "./enum";
 import { UserTable } from "@/app/api/(graphql)/User/db";
 
 export const subscriptionTypeEnum = pgEnum(
-  "type",
+  "subscription_type",
   Object.values(SubscriptionType) as [SubscriptionType, ...SubscriptionType[]],
 );
 
-export const SubscriptionTable = pgTable("users", {
+export const SubscriptionTable = pgTable("subscription", {
   id: serial("id").primaryKey(),
   userId: integer("user_id")
     .notNull()

@@ -16,7 +16,11 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthQuery, useAuthMutation } from "naystack/graphql/client";
 import { ChatRole } from "@/__generated__/graphql";
-import { MAXIMUM_MESSAGES, ERROR_MESSAGES } from "@/constants/chat";
+import {
+  MAXIMUM_MESSAGES,
+  ERROR_MESSAGES,
+  MESSAGE_CHAR_LIMIT,
+} from "@/constants/chat";
 import { GET_CHATS } from "@/constants/graphql/queries";
 import { SUBMIT_FEEDBACK } from "@/constants/graphql/mutations";
 import { useGlobalState } from "@/contexts/global-context";
@@ -462,6 +466,7 @@ export default function ChatScreen() {
                   value={feedbackText}
                   onChangeText={setFeedbackText}
                   multiline
+                  maxLength={MESSAGE_CHAR_LIMIT}
                 />
                 <TouchableOpacity
                   style={[

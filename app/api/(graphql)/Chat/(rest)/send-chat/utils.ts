@@ -20,7 +20,6 @@ export async function getAvailableUsage(id: number) {
   const chatsInLast24Hours = totalChats.filter(
     (chat) => chat.createdAt > lastDay,
   );
-  console.log(chatsInLast24Hours);
   const freeLimit =
     MAXIMUM_MESSAGES.FREE_DAILY_LIMIT - chatsInLast24Hours.length;
 
