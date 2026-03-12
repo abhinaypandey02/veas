@@ -20,7 +20,19 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'wand.and.stars': 'auto-fix-high',
   'person.fill': 'person',
-} as IconMapping;
+  'crown': 'workspace-premium',
+  'sun.max': 'wb-sunny',
+  'calendar': 'date-range',
+  'planet': 'public',
+  'moon': 'dark-mode',
+  'sparkle': 'auto-awesome',
+  'chat.bubble': 'chat-bubble-outline',
+  'arrow.right': 'arrow-forward',
+  'arrow.up.right': 'north-east',
+  'close': 'close',
+  'settings': 'settings',
+  'logout': 'logout',
+} as unknown as IconMapping;
 
 /**
  * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
