@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10",
   "scripts": {
     "dev": "next dev --turbopack & drizzle-kit studio",
     "build": "next build",
