@@ -23,6 +23,7 @@ const GENDER_OPTIONS = Object.values(Gender).map((g) => ({
 
 interface FormType {
   dob: string;
+  tob: string;
   place: string;
   gender: string;
 }
@@ -78,7 +79,6 @@ export default function OnboardForm({
 
   const handleSubmit = async (data: FormType) => {
     const selectedPlace = places.find((p) => p.place_id === Number(data.place));
-    console.log(selectedPlace, timezone);
     if (!selectedPlace || timezone === undefined) {
       form.setError("place", {
         message: "Please select a valid place",
@@ -87,7 +87,7 @@ export default function OnboardForm({
     }
     try {
       const result = await onboardUser({
-        dateOfBirth: getUTCDate(new Date(data.dob), timezone),
+        dateOfBirth: getUTCDate(new Date(`${data.dob}T${data.tob}`), timezone),
         placeOfBirthLat: parseFloat(selectedPlace.lat),
         placeOfBirthLong: parseFloat(selectedPlace.lon),
         timezone,
@@ -130,11 +130,18 @@ export default function OnboardForm({
         />
 
         <Input
-          name="dob"
-          label="Date of Birth"
+            name="dob"
+            label="Date of Birth"
+            rules={{ required: true }}
+            placeholder="2000-01-01"
+            type="date"
+        />
+        <Input
+          name="tob"
+          label="Time of Birth"
           rules={{ required: true }}
-          placeholder="2000-01-01"
-          type="datetime-local"
+          placeholder="12:12 PM"
+          type="time"
         />
         <Input
           name="gender"

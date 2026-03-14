@@ -22,6 +22,7 @@ import {
   getUTCDate,
   type SearchPlaceResponse,
 } from "@veas/utils/location";
+import DateTimePicker, {DateTimePickerEvent} from "@react-native-community/datetimepicker";
 
 const GENDER_OPTIONS = ["Male", "Female", "NonBinary"] as const;
 
@@ -50,7 +51,15 @@ function OnboardForm({
   const [loadingTimezone, setLoadingTimezone] = useState(false);
   const [timezone, setTimezone] = useState<number | undefined>();
 
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState<Date>(new Date());
+  const [show, setShow] = useState(false);
+
+  const onChange = (_:DateTimePickerEvent, selectedDate?:Date) => {
+    setShow(false);
+    if (selectedDate) {
+      setDob(selectedDate);
+    }
+  };
   const [gender, setGender] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [showPlaceResults, setShowPlaceResults] = useState(false);
@@ -111,7 +120,7 @@ function OnboardForm({
       setError("Please select a valid place from the suggestions.");
       return;
     }
-    if (!dob.trim()) {
+    if (!dob) {
       setError("Please enter your date of birth.");
       return;
     }
@@ -120,7 +129,7 @@ function OnboardForm({
       return;
     }
 
-    const parsedDate = new Date(dob);
+    const parsedDate = dob;
     if (isNaN(parsedDate.getTime())) {
       setError("Please enter a valid date (YYYY-MM-DD HH:mm).");
       return;
@@ -195,13 +204,11 @@ function OnboardForm({
       {/* Date of Birth */}
       <View style={styles.field}>
         <Text style={styles.label}>Date of Birth</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="YYYY-MM-DD HH:mm"
-          placeholderTextColor="#9CA3AF"
-          value={dob}
-          onChangeText={setDob}
-          editable={!isLoading}
+        <DateTimePicker
+            value={dob}
+            mode="datetime"
+            display="default"
+            onChange={onChange}
         />
       </View>
 
