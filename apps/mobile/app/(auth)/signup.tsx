@@ -9,7 +9,6 @@ import {
   Platform,
   ScrollView,
   ActivityIndicator,
-  FlatList,
 } from "react-native";
 import { useSignUp } from "naystack/auth/email/client";
 import { useAuthMutation } from "naystack/graphql/client";
@@ -181,23 +180,23 @@ function OnboardForm({
           />
         )}
         {showPlaceResults && places.length > 0 && (
-          <View style={styles.dropdown}>
-            <FlatList
-              data={places}
-              keyExtractor={(item) => String(item.place_id)}
-              keyboardShouldPersistTaps="handled"
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.dropdownItem}
-                  onPress={() => handleSelectPlace(item)}
-                >
-                  <Text style={styles.dropdownText} numberOfLines={2}>
-                    {item.display_name}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
+          <ScrollView
+            style={styles.dropdown}
+            keyboardShouldPersistTaps="handled"
+            nestedScrollEnabled
+          >
+            {places.map((item) => (
+              <TouchableOpacity
+                key={String(item.place_id)}
+                style={styles.dropdownItem}
+                onPress={() => handleSelectPlace(item)}
+              >
+                <Text style={styles.dropdownText} numberOfLines={2}>
+                  {item.display_name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         )}
       </View>
 
