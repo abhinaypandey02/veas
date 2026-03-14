@@ -121,7 +121,6 @@ export default function ProfileScreen() {
   const { currentUser, updateCurrentUser } = useGlobalState();
   const { isPro, isLoading: subLoading } = useSubscription();
 
-  const [getUser, { data: userData }] = useAuthQuery(GET_CURRENT_USER);
   const [getPlanets, { data: planetsData, loading: planetsLoading }] =
     useAuthQuery(GET_PLANETS);
   const [updateUserMutation, { loading: updateLoading }] =
@@ -137,11 +136,10 @@ export default function ProfileScreen() {
   const [settingsMessage, setSettingsMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    getUser();
     getPlanets();
   }, []);
 
-  const user = currentUser || userData?.getCurrentUser;
+  const user = currentUser;
 
   useEffect(() => {
     if (user) {

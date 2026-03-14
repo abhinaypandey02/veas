@@ -64,7 +64,6 @@ const DAILY_IMAGE_URI = "https://veasapp.com/daily.png";
 export default function DashboardScreen() {
   const router = useRouter();
   const { currentUser } = useGlobalState();
-  const [getUser, { data: userData }] = useAuthQuery(GET_CURRENT_USER);
   const [getSummary] = useAuthQuery(GET_SUMMARY);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -76,12 +75,7 @@ export default function DashboardScreen() {
 
   const userName =
     currentUser?.name?.split(" ")[0] ||
-    userData?.getCurrentUser?.name?.split(" ")[0] ||
     "User";
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const handleCardPress = useCallback(
     async (
