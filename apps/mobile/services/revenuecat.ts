@@ -1,7 +1,11 @@
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
+import { Platform } from "react-native";
 
 export const RC_ENTITLEMENT_ID = "Veas Pro";
-export const RC_API_KEY = process.env.EXPO_PUBLIC_REVENUECAT_API_KEY ?? "";
+const RC_API_KEY =
+  Platform.OS === "ios"
+    ? (process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY ?? "")
+    : (process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY ?? "");
 
 export function configureRevenueCat() {
   if (!RC_API_KEY) {
@@ -11,7 +15,7 @@ export function configureRevenueCat() {
   if (!__DEV__ && RC_API_KEY.startsWith("test_")) {
     console.error(
       "[RevenueCat] Test API key detected in production build. " +
-        "Replace EXPO_PUBLIC_REVENUECAT_API_KEY with your production key (appl_...)."
+        "Replace with your production key."
     );
     return;
   }
